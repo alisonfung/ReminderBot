@@ -44,7 +44,7 @@ async def waitForTest(ctx):
     """Wait for the user's response and reply."""
     await ctx.send('Waiting for your next reply!')
     def check(msg):
-        return msg.channel == ctx.channel
+        return msg.channel == ctx.channel and msg.author == ctx.author
 
     msg = await bot.wait_for('message', check=check)
     await ctx.channel.send(f'You sent: {msg.content}')
