@@ -38,6 +38,16 @@ async def scheduleTest(ctx):
     await ctx.send('You will receive a message in 10 seconds')
     await asyncio.sleep(10)
     await ctx.author.send('This is your scheduled message.')
+
+@bot.command()
+async def waitForTest(ctx):
+    """Wait for the user's response and reply."""
+    await ctx.send('Waiting for your next reply!')
+    def check(msg):
+        return msg.channel == ctx.channel
+
+    msg = await bot.wait_for('message', check=check)
+    await ctx.channel.send(f'You sent: {msg.content}')
     
 # run the bot
 bot.run(settings.DISCORD_API_SECRET)
