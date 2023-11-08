@@ -49,8 +49,30 @@ async def waitForTest(ctx):
     msg = await bot.wait_for('message', check=check)
     await ctx.channel.send(f'You sent: {msg.content}')
     
+@bot.command()
+async def reminder(ctx): 
+    await ctx.send('What is the name of your reminder?') 
+    def check(msg):
+        return msg.channel == ctx.channel and msg.author == ctx.author 
+    remindername = await bot.wait_for('message', check=check) 
+
+    await ctx.send('In how many minutes should I remind you?') 
+    def check(msg):
+        return msg.channel == ctx.channel and msg.author == ctx.author 
+    minutes = await bot.wait_for('message', check=check) 
+
+    await ctx.send(f'I will remind you about {remindername.content} in {minutes.content} minutes.')
+    def check(msg):
+        return msg.channel == ctx.channel and msg.author == ctx.author 
+    minutes = await bot.wait_for('message', check=check) 
+
+
+    # remindername.content it would give me the content of the message
+
 # run the bot
-bot.run(settings.DISCORD_API_SECRET)
+bot.run(settings.DISCORD_API_SECRET) 
+
+
 
 
 
