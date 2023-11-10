@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import settings
 import random
 import asyncio
+from datetime import datetime, timedelta
 
 # give discord permissions to access message content
 intents = discord.Intents.default()
@@ -61,10 +62,15 @@ async def reminder(ctx):
         return msg.channel == ctx.channel and msg.author == ctx.author 
     minutes = await bot.wait_for('message', check=check) 
 
+
     await ctx.send(f'I will remind you about {remindername.content} in {minutes.content} minutes.')
-    def check(msg):
-        return msg.channel == ctx.channel and msg.author == ctx.author 
-    minutes = await bot.wait_for('message', check=check) 
+    # now= datetime.now()
+    # reminder_time= now + timedelta(minutes=int(minutes.content))
+    await asyncio.sleep(60*int(minutes.content)) 
+    print ('60 seconds*minutes')
+    print (60*int(minutes.content))
+
+    await ctx.author.send(f'This is your scheduled reminder {remindername.content}') 
 
 
     # remindername.content it would give me the content of the message
